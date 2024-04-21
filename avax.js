@@ -1,7 +1,7 @@
-
-const path = require('path');
-const { Avalanche, BinTools } = require('avalanche');
-const bip39 = require('bip39');
+import fs from 'fs';
+import path from 'path';
+import { Avalanche, BinTools } from 'avalanche';
+import bip39 from 'bip39';
 
 // Initialize Avalanche client
 const avalanche = new Avalanche('api.avax.network', 443, 'https');
@@ -26,7 +26,7 @@ const keypair = xchain.keyChain().makeKey();
 const address = keypair.getAddressString();
 
 // Create a directory for the AVAX wallet
-const directory = path.join(__dirname, 'avaxwallet');
+const directory = path.join('.', 'avaxwallet');
 if (!fs.existsSync(directory)) {
     fs.mkdirSync(directory);
 }
@@ -36,3 +36,6 @@ const mnemonicFilePath = path.join(directory, 'mnemonic.txt');
 fs.writeFileSync(mnemonicFilePath, mnemonic, 'utf-8');
 
 console.log(`AVAX Wallet generated:\n- Address : ${address}\n- Mnemonic : ${mnemonic}\n- Mnemonic saved to: ${mnemonicFilePath}`);
+
+// Export variables or functions if needed
+export { address, mnemonic, mnemonicFilePath };
