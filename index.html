@@ -4,64 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Token Swap</title>
-    <!-- Include your CSS styles here -->
 </head>
 <body>
     <div class="container">
         <h1>Token Swap</h1>
-        <form id="swapForm">
-            <div class="form-group">
-                <label for="fromToken">From Token:</label>
-                <select id="fromToken">
-                    <option value="avax">AVAX</option>
-                    <option value="btc">BTC</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="toToken">To Token:</label>
-                <select id="toToken">
-                    <option value="avax">AVAX</option>
-                    <option value="btc">BTC</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="amount">Amount:</label>
-                <input type="text" id="amount" name="amount" placeholder="Enter amount">
-            </div>
-            <div class="form-group">
-                <button type="submit">Swap</button>
-            </div>
-        </form>
+        <button id="avaxButton">Generate AVAX Wallet</button>
+        <button id="btcButton">Generate BTC Wallet</button>
+        <div id="output"></div>
     </div>
 
+    <!-- Include your JavaScript files -->
     <script src="avax.js"></script>
     <script src="btc.js"></script>
-    <script>document.getElementById('swapForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const fromToken = document.getElementById('fromToken').value;
-            const toToken = document.getElementById('toToken').value;
-            const amount = document.getElementById('amount').value;
-
-            if (fromToken === 'avax' && toToken === 'btc') {
-                try {
-                    // Call swap function from avax.js
-                    await swapAVAXToBTC(amount);
-                } catch (error) {
-                    console.error('Error swapping AVAX to BTC:', error);
-                    alert('Error swapping AVAX to BTC. Please try again later.');
-                }
-            } else if (fromToken === 'btc' && toToken === 'avax') {
-                try {
-                    // Call swap function from btc.js
-                    await swapBTCToAVAX(amount);
-                } catch (error) {
-                    console.error('Error swapping BTC to AVAX:', error);
-                    alert('Error swapping BTC to AVAX. Please try again later.');
-                }
-            } else {
-                alert('Unsupported token swap.');
+    <script>
+        document.getElementById('avaxButton').addEventListener('click', async function () {
+            try {
+                const avaxWalletInfo = await generateAVAXWallet();
+                displayWalletInfo(avaxWalletInfo);
+            } catch (error) {
+                console.error('Error generating AVAX wallet:', error);
+                alert('Error generating AVAX wallet. Please try again later.');
             }
-        });</script>
+        });
+
+        document.getElementById('btcButton').addEventListener('click', async function () {
+            try {
+                const btcWalletInfo = await generateBTCWallet();
+                displayWalletInfo(btcWalletInfo);
+            } catch (error) {
+                console.error('Error generating BTC wallet:', error);
+                alert('Error generating BTC wallet. Please try again later.');
+            }
+        });
+
+        function displayWalletInfo(walletInfo) {
+            document.getElementById('output').innerHTML = `
+                    <h2>Wallet Generated</h2>
+                    <p><strong>Address:</strong> ${walletInfo.address}</p>
+                    <p><strong>Key:</strong> ${walletInfo.key}</p>
+                    <p><strong>Mnemonic:</strong> ${walletInfo.mnemonic}</p>
+                `;
+        }
+    </script>
 </body>
 </html>
