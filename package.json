@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "avalanche": "^3.16.0",
+    "bitcoinjs-lib": "^6.1.5"
+  }
+}
