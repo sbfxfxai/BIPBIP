@@ -1,7 +1,6 @@
-import fs from 'fs';
-import path from 'path';
 import { Avalanche, BinTools } from 'avalanche';
 import bip39 from 'bip39';
+import bitcoin from 'bitcoinjs-lib';
 
 // Initialize Avalanche client
 const avalanche = new Avalanche('api.avax.network', 443, 'https');
@@ -13,8 +12,8 @@ const bintools = BinTools.getInstance();
 const mnemonic = bip39.generateMnemonic();
 
 // Derive the master private key from the mnemonic
-const masterKeyBuffer = bip39.mnemonicToSeedSync(mnemonic);
-const masterKey = bintools.cb58Encode(masterKeyBuffer);
+const seed = bip39.mnemonicToSeedSync(mnemonic);
+const masterKey = bitcoin.bip32.fromSeed(seed);
 
 // Get the XChain instance
 const xchain = avalanche.XChain();
@@ -25,17 +24,9 @@ const keypair = xchain.keyChain().makeKey();
 // Get the address from the key pair
 const address = keypair.getAddressString();
 
-// Create a directory for the AVAX wallet
-const directory = path.join('.', 'avaxwallet');
-if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory);
-}
+// Log the wallet information
+console.log(`AVAX Wallet generated:\n- Address : ${address}\n- Mnemonic : ${mnemonic}`);
 
-// Write mnemonic to a file
-const mnemonicFilePath = path.join(directory, 'mnemonic.txt');
-fs.writeFileSync(mnemonicFilePath, mnemonic, 'utf-8');
-
-console.log(`AVAX Wallet generated:\n- Address : ${address}\n- Mnemonic : ${mnemonic}\n- Mnemonic saved to: ${mnemonicFilePath}`);
-
-// Export variables or functions if needed
-export { address, mnemonic, mnemonicFilePath };
+// You can use browser APIs like localStorage or IndexedDB for storing mnemonic locally
+// For example, saving mnemonic to localStorage
+localStorage.setItem('mnemonic', mnemonic);
