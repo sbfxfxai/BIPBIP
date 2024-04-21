@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Swap</title>
+    <!-- Include your CSS styles here -->
+</head>
+<body>
+    <div class="container">
+        <h1>Token Swap</h1>
+        <form id="swapForm">
+            <div class="form-group">
+                <label for="fromToken">From Token:</label>
+                <select id="fromToken">
+                    <option value="avax">AVAX</option>
+                    <option value="btc">BTC</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="toToken">To Token:</label>
+                <select id="toToken">
+                    <option value="avax">AVAX</option>
+                    <option value="btc">BTC</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="text" id="amount" name="amount" placeholder="Enter amount">
+            </div>
+            <div class="form-group">
+                <button type="submit">Swap</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="F:\BIPBIP\avax.js"></script>
+    <script src="F:\BIPBIP\btc.js"></script>
+    <script>document.getElementById('swapForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const fromToken = document.getElementById('fromToken').value;
+            const toToken = document.getElementById('toToken').value;
+            const amount = document.getElementById('amount').value;
+
+            if (fromToken === 'avax' && toToken === 'btc') {
+                try {
+                    // Call swap function from avax.js
+                    await swapAVAXToBTC(amount);
+                } catch (error) {
+                    console.error('Error swapping AVAX to BTC:', error);
+                    alert('Error swapping AVAX to BTC. Please try again later.');
+                }
+            } else if (fromToken === 'btc' && toToken === 'avax') {
+                try {
+                    // Call swap function from btc.js
+                    await swapBTCToAVAX(amount);
+                } catch (error) {
+                    console.error('Error swapping BTC to AVAX:', error);
+                    alert('Error swapping BTC to AVAX. Please try again later.');
+                }
+            } else {
+                alert('Unsupported token swap.');
+            }
+        });</script>
+</body>
+</html>
