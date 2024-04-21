@@ -13,9 +13,9 @@
         <div id="output"></div>
     </div>
 
-    <!-- Include your JavaScript files -->
-    <script src="avax.js"></script>
-    <script src="btc.js"></script>
+    <!-- Include your JavaScript files as ES6 modules -->
+    <script type="module" src="avax.js"></script>
+    <script type="module" src="btc.js"></script>
     <script>
         document.getElementById('avaxButton').addEventListener('click', async function () {
             try {
@@ -39,11 +39,11 @@
 
         function displayWalletInfo(walletInfo) {
             document.getElementById('output').innerHTML = `
-                    <h2>Wallet Generated</h2>
-                    <p><strong>Address:</strong> ${walletInfo.address}</p>
-                    <p><strong>Key:</strong> ${walletInfo.key}</p>
-                    <p><strong>Mnemonic:</strong> ${walletInfo.mnemonic}</p>
-                `;
+                        <h2>Wallet Generated</h2>
+                        <p><strong>Address:</strong> ${walletInfo.address}</p>
+                        <p><strong>Key:</strong> ${walletInfo.key}</p>
+                        <p><strong>Mnemonic:</strong> ${walletInfo.mnemonic}</p>
+                    `;
         }
     </script>
 </body>
