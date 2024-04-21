@@ -1,4 +1,4 @@
-const fs = require('fs');
+
 const path = require('path');
 const { Avalanche, BinTools } = require('avalanche');
 const bip39 = require('bip39');
