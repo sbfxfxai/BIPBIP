@@ -16,35 +16,6 @@
     <!-- Include your JavaScript files as ES6 modules -->
     <script type="module" src="avax.js"></script>
     <script type="module" src="btc.js"></script>
-    <script>
-        document.getElementById('avaxButton').addEventListener('click', async function () {
-            try {
-                const avaxWalletInfo = await generateAVAXWallet();
-                displayWalletInfo(avaxWalletInfo);
-            } catch (error) {
-                console.error('Error generating AVAX wallet:', error);
-                alert('Error generating AVAX wallet. Please try again later.');
-            }
-        });
-
-        document.getElementById('btcButton').addEventListener('click', async function () {
-            try {
-                const btcWalletInfo = await generateBTCWallet();
-                displayWalletInfo(btcWalletInfo);
-            } catch (error) {
-                console.error('Error generating BTC wallet:', error);
-                alert('Error generating BTC wallet. Please try again later.');
-            }
-        });
-
-        function displayWalletInfo(walletInfo) {
-            document.getElementById('output').innerHTML = `
-                        <h2>Wallet Generated</h2>
-                        <p><strong>Address:</strong> ${walletInfo.address}</p>
-                        <p><strong>Key:</strong> ${walletInfo.key}</p>
-                        <p><strong>Mnemonic:</strong> ${walletInfo.mnemonic}</p>
-                    `;
-        }
-    </script>
+   
 </body>
 </html>
